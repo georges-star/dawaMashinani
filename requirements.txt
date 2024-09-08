@@ -6,6 +6,7 @@ dj-database-url==2.2.0
 Django==5.0.1
 django-heroku==0.3.1
 fonttools==4.50.0
+gunicorn==23.0.0
 kiwisolver==1.4.5
 matplotlib==3.8.3
 mysql==0.0.3
