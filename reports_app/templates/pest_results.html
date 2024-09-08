@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pests Results</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mt-5">
+                    <div class="card-header text-center">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <a href="{% url 'search_pest' %}" class="btn btn-secondary">BACK</a>
+                            <h3 class="mb-0">DAWA MASHINANI</h3>
+                            <button onclick="printPage()" class="btn btn-primary">Print Report</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {% if data_list %}
+                        <h6 class="text-center font-italic">REPORT</h6>
+                        <p class="text-center">The total number of <strong>{{ pestName }}</strong> pests reports received within the specified period of time is <strong>{{ total_cases }} </strong>.</p>
+                        <h6 class="text-center font-italic">BREAKDOWN PER COUNTY</h6>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>PEST</th>
+                                        <th>COUNTY</th>
+                                        <th>NO OF CASES</th>
+                                        <th>REPORTED BY</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for entry in data_list %}
+                                    <tr>
+                                        <td>{{ pestName }}</td>
+                                        <td>{{ entry.county }}</td>
+                                        <td>{{ entry.num_cases }}</td>
+                                        <td>{{ entry.recorded_by }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <canvas id="pestChart" width="400" height="200"></canvas>
+                        {% else %}
+                        <p class="text-center">Sorry, No <b> {{pestName}} </b> report received within the specified period of time.</p>
+                        <p class="text-center"><a href="{% url 'search_pest' %}" class="btn btn-warning">KINDLY TRY AGAIN</a></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var labels = JSON.parse('{{ counties|escapejs }}');
+        var values = JSON.parse('{{ num_cases|escapejs }}');
+
+        // Combine labels and values into a single array of objects
+        var data = labels.map((label, index) => {
+            return { label: label, value: values[index] };
+        });
+
+        // Sort the combined array by value in descending order
+        data.sort((a, b) => b.value - a.value);
+
+        // Separate the sorted data back into labels and values
+        labels = data.map(item => item.label);
+        values = data.map(item => item.value);
+
+        var ctx = document.getElementById('pestChart').getContext('2d');
+        var pestChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Number of Cases',
+                    data: values,
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Function to print the page
+        function printPage() {
+            window.print();
+        }
+    </script>
+</body>
+</html>

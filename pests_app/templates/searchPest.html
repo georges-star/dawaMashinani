@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Search Pest</title>
+</head>
+<style>
+    table,
+    th,
+    td 
+    {
+        border: 2px solid;
+    }
+</style>
+{% block content %}
+<body>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-12-sm-12-lg-12">
+            <div class="card">
+              <div class="card-header" style="text-align:center; font-size:35px">DAWA MASHINANI</div>
+              <div class="card-body" style="text-align:center">
+                <div class="card">
+                    <a href="{% url 'adminPage' %}">HOME</a>
+                    <a href="{% url 'create_pest' %}">Add Pest</a>
+                    </div>
+                
+    <h6 style="text-align:center; font-style:italic;"> Pests</h6>
+    <table align="center" style="margin: 0px auto;">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Pest Name</th>
+                <th>Edit</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pest in pests %}
+            <tr>
+                <td>{{pest.id}}</td>
+                <td>{{pest.pest_name}}</td>
+                <td> <a href="/updatePest/{{pest.pk}}">Update</a> </td>
+                <td> <a href="/deletePest/{{pest.pk}}">Delete</a> </td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+{% endblock %}
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Search Pests</title>
+</head>
+{% block content %}
+<body>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card">
+              <div class="card-header" style="text-align:center; font-size:35px">DAWA MASHINANI</div>
+              <div class="card-body" style="text-align:center">
+
+    <a href="{% url 'adminPage' %}">HOME</a><br><br>
+    <h6 style="text-align:center; font-style:italic;"> Select Pest to check status</h6>
+    <form method="post">
+        {% csrf_token %}
+       <p>{{ form.pestName.label_tag }} {{ form.pestName }}</p>
+       <p>{{ form.created_at.label_tag }} {{ form.created_at }}</p>
+       <p>{{ form.updated_at.label_tag }} {{ form.updated_at }}</p>
+        <button type="submit">Show Report</button>
+    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+{% endblock %}
+</html>

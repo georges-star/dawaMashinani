@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    {% load static %}
+    <title>Login Page</title>
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: Arial, sans-serif;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+        }
+        .nav-link:hover {
+            color: #ffc107 !important;
+        }
+        .card {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            margin-top: 50px;
+        }
+        .card-header {
+            background-color: green;
+            color: #fff;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .card-body {
+            padding: 30px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: auto; /* Ensures footer stays at the bottom */
+        }
+        footer a {
+            color: #ffc107;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">DAWA MASHINANI</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contacts">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Login Form -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-4">
+                <div class="card">
+                  <img class="card-img-top" src="{% static 'login_app/images/armyworms.jpg' %}" alt="Card image" style="width:100%">
+                    <div class="card-body">
+                       <h6 class="card-title">Army Worms infestation on maize.</h6>
+                    </div>
+                </div>
+             
+                <div class="card">
+                    <img class="card-img-top" src="{% static 'login_app/images/beetles.jpg' %}" alt="Card image" style="width:100%">
+                    <div class="card-body">
+                      <h6 class="card-title">Beetles on tomatoes.</h6>
+                    </div>
+                  </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="{% static 'login_app/images/Loopers.jpg' %}" alt="Card image" style="width:100%">
+                    <div class="card-body">
+                      <h6 class="card-title">Looper worms invading cabbages.</h6>
+                    </div>
+                  </div>
+                
+                <div class="card">
+                  <img class="card-img-top" src="{% static 'login_app/images/alphids.jpg' %}" alt="Card image" style="width:100%">
+                  <div class="card-body">
+                    <h6 class="card-title">Alphids on a cherry tree.</h6>
+                    <!-- <p class="card-text">Looper worms invading cabbages.</p> -->
+                  </div>
+                </div>
+            </div>
+            
+
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-4">
+                <div class="card">
+                    <div class="card-header text-center">DAWA MASHINANI
+                        <h6 class="text-decoration" > <br> Safeguarding Kenya's Agricultural Heritage</h6>
+                    </div>    
+                    <div class="card-body">
+                           <h6 class="text-center text-muted">Enter Login Credentials</h6>
+                           <form method="POST">
+                              {% csrf_token %}
+                              {{ form.as_p }}
+                              {% if messages %}
+                              <ul class="messages">
+                                {% for message in messages %}
+                                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                {% endfor %}
+                              </ul>
+                               {% endif %}
+                              <input type="submit" class="btn btn-primary btn-block mt-4" value="Login"><br>
+                              <p class="text-center mt-3">OR</p>
+                            </form>
+                            <h5 class="text-center"><a href="{% url 'register' %}" class="text-primary">Register Account</a></h5>
+                      </div>
+              </div>
+         </div>
+
+       </div>
+   </div>
+
+    <!-- About Us Section -->
+    <section id="about" class="container mt-5">
+        <h2>About Us</h2>
+        <p>
+            Welcome to Dawa Mashinani, an application dedicated to safeguarding Kenya's agricultural heritage by effectively 
+            managing and mitigating the impact of pests and crop diseases.<br>
+            Our mission is to ensure that the Kenyan government—specifically the Ministry of Agriculture—receives timely reports about various pest and crop disease infestations from across the country, allowing for mitigation before the situation worsens. 
+            These reports, provided by agricultural extension officers situated in different parts of the country, ensure that every farmer, no matter where they are, has equal access to the resources and support needed to protect their crops and livelihoods.
+        </p>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section id="contacts" class="container mt-5 mb-5">
+        <h2>Contact Us</h2>
+        <p>
+            Farmers assist by contacting us to inform us of pests or crop diseases observed in their areas,
+            especially when agricultural officers have not yet managed to reach their location.<br>
+            Reach out to us via the following channels:
+        </p>
+        
+        
+        <ul>
+            <li>Email: support@dawamashinani.com</li>
+            <li>Phone: +254 456 7890</li>
+            <li>Address: 123 Health St, Nairobi, Kenya</li>
+        </ul>
+    </section>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 DAWA MASHINANI. All rights reserved.</p>
+        <p><a href="#about">About Us</a> | <a href="#contacts">Contact Us</a></p>
+    </footer>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

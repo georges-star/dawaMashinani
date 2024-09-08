@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>County Status Results</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.1/chart.min.js" integrity="sha512-2uu1jrAmW1A+SMwih5DAPqzFS2PI+OPw79OVLS4NJ6jGHQ/GmIVDDlWwz4KLO8DnoUmYdU8hTtFcp8je6zxbCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        table {
+            margin: 0 auto; /* Center-align the table */
+            border-collapse: collapse; /* Collapse border spacing */
+            width: 100%; /* Set table width */
+        }
+        th, td {
+            border: 1px solid #dddddd; /* Add border to cells */
+            text-align: center; /* Center-align text in cells */
+            padding: 8px; /* Add padding to cells */
+        }
+        th {
+            background-color: #f2f2f2; /* Set background color for table headers */
+        }
+        canvas {
+            display: block;
+            margin: 0 auto; /* Center-align the canvas */
+        }
+        @media print {
+            #backLink, #printButton {
+                display: none; /* Hide the back link and print button when printing */
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 col-xl-8">
+                <div class="card mt-5">
+                    <div class="card-header text-center">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <a href="{% url 'search_status' %}" class="btn btn-secondary">BACK</a>
+                            <h3 class="mb-0">DAWA MASHINANI</h3>
+                            <button onclick="printPage()" class="btn btn-primary">Print Report</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body">
+                        {% if data_list %}
+                        
+                        <h6 class="font-italic text-center">REPORT</h6>
+                        
+                        <p>The total number of reports recieved from <strong> {{countyName}} </strong> county for the specifeid period of time is <strong>{{ total_cases }}</strong>.</p>
+                        <h6 class="font-italic text-center">BREAKDOWN</h6>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>DISEASE</th>
+                                        <th>NO OF CASES</th>
+                                        <th>REPORTED BY</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for entry in data_list %}
+                                    <tr>
+                                        <td>{{ entry.disease }}</td>
+                                        <td>{{ entry.num_cases }}</td>
+                                        <td>{{ entry.recorded_by }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <canvas id="statusChart" width="400" height="200"></canvas>
+                        
+                        {% else %}
+                        <p>Sorry, No reports recieved  within the specified period of time from <strong>{{countyName}} </strong> county.</p>
+                        <a href="{% url 'search_status' %}" id="tryAgainLink" class="btn btn-warning" >KINDLY TRY AGAIN</a><br><br>
+                        {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                        <script>
+                            var labels = JSON.parse('{{ diseases|escapejs }}');
+                            var values = JSON.parse('{{ num_cases|escapejs }}');
+                    
+                            // Combine labels and values into a single array of objects
+                            var data = labels.map((label, index) => {
+                                return { label: label, value: values[index] };
+                            });
+                    
+                            // Sort the combined array by value in descending order
+                            data.sort((a, b) => b.value - a.value);
+                    
+                            // Separate the sorted data back into labels and values
+                            labels = data.map(item => item.label);
+                            values = data.map(item => item.value);
+                    
+                            var ctx = document.getElementById('statusChart').getContext('2d');
+                            var statusChart = new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: labels,
+                                    datasets: [{
+                                        label: 'Number of Cases',
+                                        data: values,
+                                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                                        borderColor: 'rgba(255, 99, 132, 1)',
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            });
+                    
+                            // Function to print the page
+                            function printPage() {
+                                window.print();
+                            }
+                        </script>
+                        
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

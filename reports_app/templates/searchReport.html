@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Search Report</title>
+    <style>
+        table, th, td {
+            border: 2px solid;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header text-center" style="font-size: 35px;">DAWA MASHINANI</div>
+                    <div class="card-body text-center">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <a href="{% url 'fieldOfficerPage' %}" class="btn btn-primary">HOME</a>
+                                <a href="{% url 'create_report' %}" class="btn btn-secondary">Add a Report</a>
+                            </div>
+                        </div>
+
+                        <h6 class="font-italic">Reports Information</h6>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Pest Name</th>
+                                        <th>Disease Name</th>
+                                        <th>County</th>
+                                        <th>Edit</th>
+                                        <th>Remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for rpt in reports %}
+                                    <tr>
+                                        <td>{{ rpt.id }}</td>
+                                        <td>{{ rpt.pestName }}</td>
+                                        <td>{{ rpt.diseaseName }}</td>
+                                        <td>{{ rpt.countyName }}</td>
+                                        <td><a href="/updateReport/{{ rpt.pk }}" class="btn btn-warning">Update</a></td>
+                                        <td><a href="/deleteReport/{{ rpt.pk }}" class="btn btn-danger">Delete</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Search Report</title>
+    <style>
+        table, th, td {
+            border: 2px solid;
+        }
+        .map-image {
+            width: 300px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header text-center" style="font-size: 35px;">DAWA MASHINANI</div>
+                    <div class="card-body text-center">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <a href="{% url 'fieldOfficerPage' %}" class="btn btn-primary">HOME</a>
+                                <a href="{% url 'create_report' %}" class="btn btn-secondary">Add a Report</a>
+                            </div>
+                        </div>
+
+                        <h6 class="font-italic">Reports Information</h6>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Pest Name</th>
+                                        <th>Disease Name</th>
+                                        <th>County</th>
+                                        <th>Map</th>
+                                        <th>Edit</th>
+                                        <th>Remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for rpt in reports %}
+                                    <tr>
+                                        <td>{{ rpt.id }}</td>
+                                        <td>{{ rpt.pestName }}</td>
+                                        <td>{{ rpt.diseaseName }}</td>
+                                        <td>{{ rpt.countyName }}</td>
+
+                                        Display Google Maps Static Image
+                                        <td>
+                                            {% if rpt.latitude and rpt.longitude %}
+                                                <img class="map-image" 
+                                                     src="https://maps.googleapis.com/maps/api/staticmap?center={{ rpt.latitude }},{{ rpt.longitude }}&zoom=13&size=300x200&key=YOUR_GOOGLE_MAPS_API_KEY&markers=color:red%7Clabel:S%7C{{ rpt.latitude }},{{ rpt.longitude }}" 
+                                                     alt="Location map">
+                                            {% else %}
+                                                <p>No Location Available</p>
+                                            {% endif %}
+                                        </td>
+
+                                        <td><a href="/updateReport/{{ rpt.pk }}" class="btn btn-warning">Update</a></td>
+                                        <td><a href="/deleteReport/{{ rpt.pk }}" class="btn btn-danger">Delete</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> -->
+

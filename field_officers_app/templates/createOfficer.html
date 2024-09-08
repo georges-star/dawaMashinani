@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Add Field Officer</title>
+</head>
+
+    {% block content %}
+<body>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header" style="text-align:center; font-size:35px">DAWA MASHINANI</div>
+              <div class="card-body" style="text-align:center">
+    <a href="{% url 'retrieve_field_officer' %}">BACK</a>
+    <h6 style="text-align:center; font-style:italic;"> Add New Field Officer </h6>
+    <form method="POST" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-success">
+    </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+{% endblock %}
+</html>
+
+
+
+

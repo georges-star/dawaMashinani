@@ -1,0 +1,6 @@
+myvenv/
+*.pyc
+.env
+.history
+venv
+# db.sqlite3
