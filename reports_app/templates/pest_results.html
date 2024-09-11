@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pests Results</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        canvas {
+            display: block;
+            margin: 20px auto;
+            width: 100%; /* Set to 100% for responsiveness */
+            max-width: 900px; /* Maximum width for large screens */
+            height: 500px; /* Increase height for larger display */
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -23,6 +32,10 @@
                         {% if data_list %}
                         <h6 class="text-center font-italic">REPORT</h6>
                         <p class="text-center">The total number of <strong>{{ pestName }}</strong> pests reports received within the specified period of time is <strong>{{ total_cases }} </strong>.</p>
+                        
+                        <!-- Bar Chart Displayed Before Table -->
+                        <canvas id="pestChart"></canvas>
+
                         <h6 class="text-center font-italic">BREAKDOWN PER COUNTY</h6>
                         <div class="table-responsive">
                             <table class="table table-bordered">
@@ -46,7 +59,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <canvas id="pestChart" width="400" height="200"></canvas>
                         {% else %}
                         <p class="text-center">Sorry, No <b> {{pestName}} </b> report received within the specified period of time.</p>
                         <p class="text-center"><a href="{% url 'search_pest' %}" class="btn btn-warning">KINDLY TRY AGAIN</a></p>
@@ -87,6 +99,7 @@
                 }]
             },
             options: {
+                responsive: true,
                 scales: {
                     y: {
                         beginAtZero: true

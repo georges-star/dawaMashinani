@@ -7,70 +7,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <title>Search Disease</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: center;
+            padding: 12px;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Ensure table responsiveness */
+        @media screen and (max-width: 768px) {
+            table {
+                width: 100%;
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
 </head>
-<style>
-  table,
-  th,
-  td 
-  {
-      border: 2px solid;
-  }
-</style>
+
 {% block content %}
 <body>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <div class="container">
+    <div class="container mt-5">
         <div class="row justify-content-center">
-          <div class="col-md-12-sm-6-lg-6">
-            <div class="card">
-              <div class="card-header" style="text-align:center; font-size:35px">DAWA MASHINANI</div>
-              <div class="card-body" style="text-align:center">
-<div class="card">
-       <a href="{% url 'adminPage' %}">HOME</a>
-       <a href="{% url 'create_field_officer' %}">ADD </a>
-</div>
-    <h6 style="text-align:center; font-style:italic;"> FIELD OFFICER INFORMATION </h6>
-    <table style="margin: 0px auto;">
-        <thead>
-            <div class="row">
-            <tr>
-                <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>County</th>
-                <th>Username</th>
-                <!-- <th>password</th> -->
-                <th>Edit</th>
-                <th>Remove</th>
-            </tr>
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h2>DAWA MASHINANI</h2>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <a href="{% url 'adminPage' %}" class="btn btn-primary btn-sm">HOME</a>
+                            <a href="{% url 'create_field_officer' %}" class="btn btn-success btn-sm">ADD</a>
+                        </div>
+                        <h6 class="text-muted font-italic">FIELD OFFICER INFORMATION</h6>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>County</th>
+                                        <th>Username</th>
+                                        <th>Edit</th>
+                                        <th>Remove</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for field_officer in field_officers %}
+                                    <tr>
+                                        <td>{{field_officer.id}}</td>
+                                        <td>{{field_officer.fname}}</td>
+                                        <td>{{field_officer.lname}}</td>
+                                        <td>{{field_officer.email}}</td>
+                                        <td>{{field_officer.phone}}</td>
+                                        <td>{{field_officer.county}}</td>
+                                        <td>{{field_officer.username}}</td>
+                                        <td><a href="/updateOfficer/{{field_officer.pk}}" class="btn btn-info btn-sm">Update</a></td>
+                                        <td><a href="/deleteOfficer/{{field_officer.pk}}" class="btn btn-danger btn-sm">Delete</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </thead>
-        <tbody>
-            {% for field_officer in field_officers %}
-           
-            <tr>
-                <td>{{field_officer.id}}</td>
-                <td>{{field_officer.fname}}</td>
-                <td>{{field_officer.lname}}</td>
-                <td>{{field_officer.email}}</td>
-                <td>{{field_officer.phone}}</td>
-                <td>{{field_officer.county}}</td>
-                <td>{{field_officer.username}}</td>
-                <!-- <td>{{field_officer.password}}</td> -->
-                <td> <a href="/updateOfficer/{{field_officer.pk}}">Update</a> </td>
-                <td> <a href="/deleteOfficer/{{field_officer.pk}}">Delete</a> </td>
-            </tr>
-            
-            {% endfor %}
-                </tbody>
-    </table>
-</div>
-</div>
-</div>
-</div>
-</div>
+        </div>
+    </div>
 </body>
 {% endblock %}
 </html>

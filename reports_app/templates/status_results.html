@@ -22,7 +22,9 @@
         }
         canvas {
             display: block;
-            margin: 0 auto; /* Center-align the canvas */
+            margin: 20px auto; /* Center-align the canvas */
+            max-width: 100%;
+            height: 500px; /* Set height */
         }
         @media print {
             #backLink, #printButton {
@@ -50,7 +52,11 @@
                         
                         <h6 class="font-italic text-center">REPORT</h6>
                         
-                        <p>The total number of reports recieved from <strong> {{countyName}} </strong> county for the specifeid period of time is <strong>{{ total_cases }}</strong>.</p>
+                        <p>The total number of reports received from <strong>{{countyName}}</strong> county for the specified period of time is <strong>{{ total_cases }}</strong>.</p>
+                        
+                        <!-- Move the chart before the table -->
+                        <canvas id="statusChart"></canvas>
+                        
                         <h6 class="font-italic text-center">BREAKDOWN</h6>
                         <div class="table-responsive">
                             <table class="table table-bordered">
@@ -72,61 +78,61 @@
                                 </tbody>
                             </table>
                         </div>
-                        <canvas id="statusChart" width="400" height="200"></canvas>
                         
                         {% else %}
-                        <p>Sorry, No reports recieved  within the specified period of time from <strong>{{countyName}} </strong> county.</p>
-                        <a href="{% url 'search_status' %}" id="tryAgainLink" class="btn btn-warning" >KINDLY TRY AGAIN</a><br><br>
+                        <p>Sorry, no reports received within the specified period of time from <strong>{{countyName}}</strong> county.</p>
+                        <a href="{% url 'search_status' %}" id="tryAgainLink" class="btn btn-warning">KINDLY TRY AGAIN</a><br><br>
                         {% endif %}
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-                        <script>
-                            var labels = JSON.parse('{{ diseases|escapejs }}');
-                            var values = JSON.parse('{{ num_cases|escapejs }}');
-                    
-                            // Combine labels and values into a single array of objects
-                            var data = labels.map((label, index) => {
-                                return { label: label, value: values[index] };
-                            });
-                    
-                            // Sort the combined array by value in descending order
-                            data.sort((a, b) => b.value - a.value);
-                    
-                            // Separate the sorted data back into labels and values
-                            labels = data.map(item => item.label);
-                            values = data.map(item => item.value);
-                    
-                            var ctx = document.getElementById('statusChart').getContext('2d');
-                            var statusChart = new Chart(ctx, {
-                                type: 'bar',
-                                data: {
-                                    labels: labels,
-                                    datasets: [{
-                                        label: 'Number of Cases',
-                                        data: values,
-                                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                                        borderColor: 'rgba(255, 99, 132, 1)',
-                                        borderWidth: 1
-                                    }]
-                                },
-                                options: {
-                                    responsive: true,
-                                    scales: {
-                                        y: {
-                                            beginAtZero: true
-                                        }
-                                    }
-                                }
-                            });
-                    
-                            // Function to print the page
-                            function printPage() {
-                                window.print();
-                            }
-                        </script>
+    </div>
+
+    <script>
+        var labels = JSON.parse('{{ diseases|escapejs }}');
+        var values = JSON.parse('{{ num_cases|escapejs }}');
+
+        // Combine labels and values into a single array of objects
+        var data = labels.map((label, index) => {
+            return { label: label, value: values[index] };
+        });
+
+        // Sort the combined array by value in descending order
+        data.sort((a, b) => b.value - a.value);
+
+        // Separate the sorted data back into labels and values
+        labels = data.map(item => item.label);
+        values = data.map(item => item.value);
+
+        var ctx = document.getElementById('statusChart').getContext('2d');
+        var statusChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Number of Cases',
+                    data: values,
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Function to print the page
+        function printPage() {
+            window.print();
+        }
+    </script>
                         
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

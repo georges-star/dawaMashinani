@@ -156,7 +156,7 @@ def create_report(request):
 @never_cache
 @login_required
 def retrieve_report(request):
-    rpt = reports.objects.filter(recorded_by=request.user.username)
+    rpt = reports.objects.filter(recorded_by=request.user.username).order_by('-created_at')  # Order by created_at in descending order
     return render(request, 'searchReport.html', {'reports': rpt})
 
 #update reports
