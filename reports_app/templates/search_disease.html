@@ -1,34 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <title>Search Disease</title>
+    <style>
+        .card-header {
+            font-size: 2rem;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .card-body {
+            text-align: center;
+        }
+        .btn-custom {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+        .btn-custom:hover {
+            background-color: #218838;
+        }
+        .form-group p {
+            margin: 10px 0;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        @media (max-width: 767px) {
+            .card-header {
+                font-size: 1.5rem;
+            }
+            .btn-custom {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
-{% block content %}
 <body>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <div class="container">
         <div class="row justify-content-center">
-          <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-            <div class="card">
-              <div class="card-header" style="text-align:center; font-size:35px">DAWA MASHINANI</div>
-              <div class="card-body" style="text-align:center">
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="card">
+                    <div class="card-header text-center">
+                        DAWA MASHINANI
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'adminPage' %}" class="btn btn-secondary mb-3">HOME</a>
+                        <h6 class="font-italic">Select Disease to Check Status</h6>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <p>{{ form.diseaseName.label_tag }} {{ form.diseaseName }}</p>
+                                <p>{{ form.created_at.label_tag }} {{ form.created_at }}</p>
+                                <p>{{ form.updated_at.label_tag }} {{ form.updated_at }}</p>
+                            </div>
+                            <button type="submit" class="btn btn-custom">Show Report</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <a href="{% url 'adminPage' %}">HOME</a><br><br>
-    <h6 style="text-align:center; font-style:italic;"> Select Disease to check status</h6>
-    <form method="post">
-        {% csrf_token %}
-       <p>{{ form.diseaseName }}</p>
-       <p>{{ form.created_at.label_tag }} {{ form.created_at }}</p>
-       <p>{{ form.updated_at.label_tag }} {{ form.updated_at }}</p>
-        <button type="submit">Show Report</button>
-    </form>
-</div>
-</div>
-</div>
-</div>
-</div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-{% endblock %}
-
 </html>

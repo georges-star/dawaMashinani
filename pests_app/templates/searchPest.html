@@ -7,56 +7,91 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <title>Search Pest</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        table {
+            width: 100%;
+            margin: 20px 0;
+            text-align: center;
+        }
+        th, td {
+            padding: 10px;
+        }
+        th {
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+        }
+        td {
+            background-color: #f4f7f6;
+        }
+        .card-header {
+            background-color: #28a745;
+            color: white;
+            font-size: 35px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .btn {
+            margin: 5px;
+            width: 100px;
+        }
+        h6 {
+            font-style: italic;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
-<style>
-    table,
-    th,
-    td 
-    {
-        border: 2px solid;
-    }
-</style>
+
 {% block content %}
 <body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <div class="container">
+    
+    <div class="container mt-5">
         <div class="row justify-content-center">
-          <div class="col-md-12-sm-12-lg-12">
-            <div class="card">
-              <div class="card-header" style="text-align:center; font-size:35px">DAWA MASHINANI</div>
-              <div class="card-body" style="text-align:center">
-                <div class="card">
-                    <a href="{% url 'adminPage' %}">HOME</a>
-                    <a href="{% url 'create_pest' %}">Add Pest</a>
+            <div class="col-md-10">
+                <div class="card shadow">
+                    <div class="card-header">
+                        DAWA MASHINANI
                     </div>
-                
-    <h6 style="text-align:center; font-style:italic;"> Pests</h6>
-    <table align="center" style="margin: 0px auto;">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Pest Name</th>
-                <th>Edit</th>
-                <th>Remove</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for pest in pests %}
-            <tr>
-                <td>{{pest.id}}</td>
-                <td>{{pest.pest_name}}</td>
-                <td> <a href="/updatePest/{{pest.pk}}">Update</a> </td>
-                <td> <a href="/deletePest/{{pest.pk}}">Delete</a> </td>
-            </tr>
-            {% endfor %}
-            
-        </tbody>
-    </table>
-</div>
-</div>
-</div>
-</div>
-</div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3">
+                            <a href="{% url 'adminPage' %}" class="btn btn-outline-secondary">HOME</a>
+                            <a href="{% url 'create_pest' %}" class="btn btn-outline-success">Add Pest</a>
+                        </div>
+
+                        <h6>Pests</h6>
+
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Pest Name</th>
+                                    <th>Edit</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for pest in pests %}
+                                <tr>
+                                    <td>{{ pest.id }}</td>
+                                    <td>{{ pest.pest_name }}</td>
+                                    <td><a href="/updatePest/{{ pest.pk }}" class="btn btn-warning btn-sm">Update</a></td>
+                                    <td><a href="/deletePest/{{ pest.pk }}" class="btn btn-danger btn-sm">Delete</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 {% endblock %}
 

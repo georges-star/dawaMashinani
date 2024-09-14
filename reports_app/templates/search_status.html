@@ -3,14 +3,18 @@
 {% block title %}Select County{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card mt-5">
-                <div class="card-header text-center" style="font-size: 35px;">DAWA MASHINANI</div>
-                <div class="card-body text-center">
-                    <a href="{% url 'adminPage' %}" class="btn btn-primary mb-3">HOME</a>
-                    <h6 class="text-center" style="font-style: italic;">Select County to check status</h6>
+            <div class="card shadow-lg">
+                <div class="card-header text-center bg-success text-white" style="font-size: 35px; font-weight: bold;">
+                    DAWA MASHINANI
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <a href="{% url 'adminPage' %}" class="btn btn-outline-primary">HOME</a>
+                    </div>
+                    <h6 class="text-center font-italic mb-4">Select County to check status</h6>
                     <form method="post">
                         {% csrf_token %}
                         <p>{{ form.countyName.label_tag }} {{ form.countyName }}</p>

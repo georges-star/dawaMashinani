@@ -6,34 +6,76 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> <!-- Optional for icons -->
     <title>Add Field Officer</title>
+    <style>
+        body {
+            background-color: #f7f7f7;
+        }
+        .card {
+            margin-top: 50px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #28a745;
+            color: white;
+            font-size: 35px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            text-align: center;
+        }
+        .card-body {
+            padding: 30px;
+        }
+        h6 {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .btn-success {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+        }
+        a {
+            text-decoration: none;
+            color: #28a745;
+            font-weight: bold;
+        }
+        a:hover {
+            color: #218838;
+        }
+    </style>
 </head>
 
-    {% block content %}
 <body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <div class="container">
         <div class="row justify-content-center">
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-header" style="text-align:center; font-size:35px">DAWA MASHINANI</div>
-              <div class="card-body" style="text-align:center">
-    <a href="{% url 'retrieve_field_officer' %}">BACK</a>
-    <h6 style="text-align:center; font-style:italic;"> Add New Field Officer </h6>
-    <form method="POST" >
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" class="btn btn-success">
-    </form>
-</div>
-</div>
-</div>
-</div>
-</div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        DAWA MASHINANI
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'retrieve_field_officer' %}" class="btn btn-link"><i class="fas fa-arrow-left"></i> BACK</a>
+                        <h6>Add New Field Officer</h6>
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <input type="submit" class="btn btn-success" value="Submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-{% endblock %}
+
 </html>
-
-
-
-

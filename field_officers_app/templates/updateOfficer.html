@@ -6,33 +6,91 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"> <!-- Optional for icons -->
     <title>Update Field Officer</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+        }
+        .card {
+            margin-top: 50px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .card-header {
+            background-color: #28a745;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        .card-body {
+            padding: 30px;
+        }
+        h6 {
+            font-style: italic;
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+        .btn-success {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+        }
+        .back-link {
+            font-weight: bold;
+            color: #28a745;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            color: #218838;
+        }
+        form input[type="submit"] {
+            width: 100%;
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        form input[type="submit"]:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
-{% block content %}
+
 <body>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <div class="container">
         <div class="row justify-content-center">
-          <div class="col-md-12-sm-6-lg-6">
-            <div class="card">
-              <div class="card-header" style="text-align:center; font-size:35px">DAWA MASHINANI</div>
-              <div class="card-body" style="text-align:center">
+            <div class="col-lg-6 col-md-8 col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        DAWA MASHINANI
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'retrieve_field_officer' %}" class="back-link">
+                            <i class="fas fa-arrow-left"></i> BACK
+                        </a>
+                        <h6>UPDATE FIELD OFFICER DETAILS</h6>
 
-    <div class="card">
-    <a href="{% url 'retrieve_field_officer' %}">BACK</a><br><br>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <input type="submit" value="Update">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <h6 style="text-align:center; font-style:italic;">UPDATE FIELD OFFICER DETAILS</h6>
-
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit">
-    </form>
-</div>
-</div>
-</div>
-</div>
-</div>
 </body>
-{% endblock %}
 </html>
